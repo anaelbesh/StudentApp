@@ -10,4 +10,15 @@
     <string name="address">Address:</string>
     <string name="checked_status">Checked Status:</string>
     <string name="student_checked">Student Checked</string>
+    <string name="new_student">New Student</string>
+    <string name="student_name">Name</string>
+    <string name="student_id">ID</string>
+    <string name="student_phone">Phone</string>
+    <string name="student_address">Address</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_name_required">Name is required</string>
+    <string name="error_id_required">ID is required</string>
+    <string name="error_id_exists">Student with this ID already exists</string>
+    <string name="student_added_success">Student added successfully</string>
 </resources>

@@ -30,6 +30,11 @@ class StudentsListActivity : AppCompatActivity() {
         setupRecyclerView()
 
         loadStudents()
+
+        fabAddStudent.setOnClickListener {
+            val intent = Intent(this, NewStudentActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
