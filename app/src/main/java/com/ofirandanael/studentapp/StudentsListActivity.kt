@@ -1,5 +1,6 @@
 package com.ofirandanael.studentapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +33,15 @@ class StudentsListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = StudentsAdapter(emptyList())
+        adapter = StudentsAdapter(
+            students = emptyList(),
+            onStudentClick = { student ->
+                openStudentDetails(student.id)
+            },
+            onCheckboxClick = { student ->
+                toggleStudentChecked(student.id)
+            }
+        )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
@@ -44,6 +53,17 @@ class StudentsListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        loadStudents()
+    }
+
+    private fun openStudentDetails(studentId: String) {
+        val intent = Intent(this, StudentDetailsActivity::class.java)
+        intent.putExtra(Constants.EXTRA_STUDENT_ID, studentId)
+        startActivity(intent)
+    }
+
+    private fun toggleStudentChecked(studentId: String) {
+        Model.shared.toggleStudentChecked(studentId)
         loadStudents()
     }
 }

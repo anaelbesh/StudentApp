@@ -4,4 +4,10 @@
     <string name="student_image">Student Image</string>
     <string name="student_checked_status">Student Checked Status</string>
     <string name="student_id_format">ID: %s</string>
+    <string name="name">Name:</string>
+    <string name="id">ID:</string>
+    <string name="phone">Phone:</string>
+    <string name="address">Address:</string>
+    <string name="checked_status">Checked Status:</string>
+    <string name="student_checked">Student Checked</string>
 </resources>
