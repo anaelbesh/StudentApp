@@ -99,10 +99,18 @@
             android:id="@+id/studentDetailsCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             android:text="@string/student_checked"
             android:enabled="false"
             android:clickable="false" />
+
+        <Button
+            android:id="@+id/editStudentButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit_student"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

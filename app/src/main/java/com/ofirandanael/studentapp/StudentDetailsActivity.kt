@@ -1,6 +1,8 @@
 package com.ofirandanael.studentapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -18,6 +20,9 @@ class StudentDetailsActivity : AppCompatActivity() {
     private lateinit var studentPhoneTextView: TextView
     private lateinit var studentAddressTextView: TextView
     private lateinit var studentCheckBox: CheckBox
+    private lateinit var editButton: Button
+
+    private var currentStudentId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +36,26 @@ class StudentDetailsActivity : AppCompatActivity() {
         studentPhoneTextView = findViewById(R.id.studentDetailsPhoneTextView)
         studentAddressTextView = findViewById(R.id.studentDetailsAddressTextView)
         studentCheckBox = findViewById(R.id.studentDetailsCheckBox)
+        editButton = findViewById(R.id.editStudentButton)
 
         val studentId = intent.getStringExtra(Constants.EXTRA_STUDENT_ID)
 
         if (studentId != null) {
+            currentStudentId = studentId
             loadStudentDetails(studentId)
+            setupEditButton()
         } else {
             finish()
+        }
+    }
+
+    private fun setupEditButton() {
+        editButton.setOnClickListener {
+            currentStudentId?.let { id ->
+                val intent = Intent(this, EditStudentActivity::class.java)
+                intent.putExtra(Constants.EXTRA_STUDENT_ID, id)
+                startActivity(intent)
+            }
         }
     }
 
@@ -45,6 +63,8 @@ class StudentDetailsActivity : AppCompatActivity() {
         val student = Model.shared.getStudentById(studentId)
 
         if (student != null) {
+            currentStudentId = student.id
+
             studentImageView.setImageResource(student.imageResId)
             studentNameTextView.text = student.name
             studentIdTextView.text = getString(R.string.student_id_format, student.id)
@@ -54,6 +74,11 @@ class StudentDetailsActivity : AppCompatActivity() {
         } else {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentStudentId?.let { loadStudentDetails(it) }
     }
 }
 
