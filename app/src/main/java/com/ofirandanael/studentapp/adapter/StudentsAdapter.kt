@@ -14,7 +14,9 @@ import com.ofirandanael.studentapp.model.Student
  * RecyclerView Adapter for displaying a list of students
  */
 class StudentsAdapter(
-    private var students: List<Student>
+    private var students: List<Student>,
+    private val onStudentClick: (Student) -> Unit,
+    private val onCheckboxClick: (Student) -> Unit
 ) : RecyclerView.Adapter<StudentsAdapter.StudentViewHolder>() {
 
     /**
@@ -40,7 +42,20 @@ class StudentsAdapter(
         holder.studentImageView.setImageResource(student.imageResId)
         holder.studentNameTextView.text = student.name
         holder.studentIdTextView.text = holder.itemView.context.getString(R.string.student_id_format, student.id)
+
+        // Remove previous listeners to prevent issues with view recycling
+        holder.studentCheckBox.setOnCheckedChangeListener(null)
         holder.studentCheckBox.isChecked = student.isChecked
+
+        // Set checkbox listener
+        holder.studentCheckBox.setOnCheckedChangeListener { _, _ ->
+            onCheckboxClick(student)
+        }
+
+        // Set row click listener
+        holder.itemView.setOnClickListener {
+            onStudentClick(student)
+        }
     }
 
     override fun getItemCount(): Int = students.size
