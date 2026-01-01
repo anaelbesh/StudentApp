@@ -21,7 +21,7 @@ class Model private constructor() {
                 phone = "050-${1000000 + i}",
                 address = "Address $i",
                 isChecked = false,
-                imageResId = R.drawable.ic_launcher_foreground
+                imageResId = R.drawable.student
             )
             students.add(student)
         }
