@@ -52,7 +52,7 @@ class EditStudentActivity : AppCompatActivity() {
             originalStudentId = studentId
             loadStudentData(studentId)
         } else {
-            Toast.makeText(this, "Error: No student ID provided", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_no_student_id), Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -72,7 +72,7 @@ class EditStudentActivity : AppCompatActivity() {
             currentImageResId = student.imageResId
             studentImageView.setImageResource(currentImageResId)
         } else {
-            Toast.makeText(this, "Student not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_student_not_found), Toast.LENGTH_SHORT).show()
             finish()
         }
     }
@@ -101,32 +101,20 @@ class EditStudentActivity : AppCompatActivity() {
 
         // Validate input
         if (name.isEmpty()) {
-            Toast.makeText(this, "Please enter a name", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_name_required), Toast.LENGTH_SHORT).show()
             nameEditText.requestFocus()
             return
         }
 
         if (newId.isEmpty()) {
-            Toast.makeText(this, "Please enter an ID", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_id_required), Toast.LENGTH_SHORT).show()
             idEditText.requestFocus()
-            return
-        }
-
-        if (phone.isEmpty()) {
-            Toast.makeText(this, "Please enter a phone number", Toast.LENGTH_SHORT).show()
-            phoneEditText.requestFocus()
-            return
-        }
-
-        if (address.isEmpty()) {
-            Toast.makeText(this, "Please enter an address", Toast.LENGTH_SHORT).show()
-            addressEditText.requestFocus()
             return
         }
 
         // Check if ID changed and if new ID already exists
         if (newId != originalStudentId && Model.shared.studentExists(newId)) {
-            Toast.makeText(this, "A student with ID '$newId' already exists", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.error_id_exists), Toast.LENGTH_LONG).show()
             idEditText.requestFocus()
             return
         }
@@ -146,21 +134,21 @@ class EditStudentActivity : AppCompatActivity() {
         } ?: false
 
         if (success) {
-            Toast.makeText(this, "Student updated successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.student_updated_success), Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            Toast.makeText(this, "Failed to update student", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_update_failed), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun confirmDelete() {
         AlertDialog.Builder(this)
-            .setTitle("Delete Student")
-            .setMessage("Are you sure you want to delete this student? This action cannot be undone.")
-            .setPositiveButton("Delete") { _, _ ->
+            .setTitle(getString(R.string.delete_confirmation_title))
+            .setMessage(getString(R.string.delete_confirmation_message))
+            .setPositiveButton(getString(R.string.delete)) { _, _ ->
                 deleteStudent()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -170,10 +158,10 @@ class EditStudentActivity : AppCompatActivity() {
         } ?: false
 
         if (success) {
-            Toast.makeText(this, "Student deleted successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.student_deleted_success), Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            Toast.makeText(this, "Failed to delete student", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_delete_failed), Toast.LENGTH_SHORT).show()
         }
     }
 }
