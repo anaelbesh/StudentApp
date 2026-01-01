@@ -21,4 +21,6 @@
     <string name="error_id_required">ID is required</string>
     <string name="error_id_exists">Student with this ID already exists</string>
     <string name="student_added_success">Student added successfully</string>
+    <string name="edit_student">Edit Student</string>
+    <string name="delete">Delete</string>
 </resources>
